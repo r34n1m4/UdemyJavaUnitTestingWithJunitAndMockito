@@ -1,12 +1,13 @@
 package junit_tests;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+import org.junit.*;
 
 public class BeforeAfterTest {
+
+    @BeforeClass
+    public static void beforeClass() {
+        System.out.println("Before Class");
+    }
 
     @Before
     public void setup() {
@@ -26,5 +27,10 @@ public class BeforeAfterTest {
     @After
     public void teardown() {
         System.out.println("After Test");
+    }
+
+    @AfterClass
+    public static void afterClass() {
+        System.out.println("After Class");
     }
 }
