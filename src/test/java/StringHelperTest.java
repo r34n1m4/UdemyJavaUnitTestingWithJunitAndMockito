@@ -28,4 +28,21 @@ public class StringHelperTest {
     public void testTruncateAInFirst2Positions_AinLastPositions() {
         assertEquals("CDAA", helper.truncateAInFirst2Positions("CDAA"));
     }
+    //ABCD = > false, ABAB => true, AB => true, A => false;
+    @Test
+    public void testAreFirstAndLastTwoCharactersTheSame_BasicNegativeScenario() {
+        assertFalse(helper.areFirstAndLastTwoCharactersTheSame("ABCD"));
+    }
+    @Test
+    public void testAreFirstAndLastTwoCharactersTheSame_BasicPositiveScenario() {
+        assertTrue(helper.areFirstAndLastTwoCharactersTheSame("ABAB"));
+    }
+    @Test
+    public void testAreFirstAndLastTwoCharactersTheSame_twoLettersPositiveScenario() {
+        assertTrue(helper.areFirstAndLastTwoCharactersTheSame("AB"));
+    }
+    @Test
+    public void testAreFirstAndLastTwoCharactersTheSame_oneLetterPositiveScenario() {
+        assertFalse(helper.areFirstAndLastTwoCharactersTheSame("A"));
+    }
 }
