@@ -2,6 +2,7 @@ package business;
 
 import api.TodoService;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 
 import java.util.Arrays;
 import java.util.List;
@@ -60,6 +61,49 @@ public class TodoBusinessImplMockTest {
         //When
         todoBusinessImpl.deleteTodosRelatedToSpring("Dummy");
         //Then
-        verify(todoServiceMock).deleteTodo("Learn to sleep at work");
+        then(todoServiceMock).should().deleteTodo("Learn to sleep at work");
+        then(todoServiceMock).should(never()).deleteTodo("Learn Spring MVC");
+        then(todoServiceMock).should(never()).deleteTodo("Learn Spring");
+    }
+
+    @Test
+    public void testDeleteTodosNotRelatedToSpring_usingBDD_argumentCapture() {
+        //Declare Argument Capture
+        ArgumentCaptor<String> stringArgumentCaptor = ArgumentCaptor.forClass(String.class);
+        //Define Argument captor on specific method call
+        //Capture the argument
+
+        //Given
+        TodoService todoServiceMock = mock(TodoService.class);
+        List<String> todos =
+                Arrays.asList("Learn Spring MVC", "Learn Spring", "Learn to sleep at work");
+        given(todoServiceMock.retrieveTodos("Dummy")).willReturn(todos);
+        TodoBusinessImpl todoBusinessImpl = new TodoBusinessImpl(todoServiceMock);
+        //When
+        todoBusinessImpl.deleteTodosRelatedToSpring("Dummy");
+        //Then
+        then(todoServiceMock).should().deleteTodo(stringArgumentCaptor.capture());
+        assertThat(stringArgumentCaptor.getValue(), is("Learn to sleep at work"));
+    }
+
+    @Test
+    public void testDeleteTodosNotRelatedToSpring_usingBDD_argumentCaptureMultiply() {
+        //Declare Argument Capture
+        ArgumentCaptor<String> stringArgumentCaptor = ArgumentCaptor.forClass(String.class);
+        //Define Argument captor on specific method call
+        //Capture the argument
+
+        //Given
+        TodoService todoServiceMock = mock(TodoService.class);
+        List<String> todos =
+                Arrays.asList("Learn to learn", "Learn Spring", "Learn to sleep at work");
+        given(todoServiceMock.retrieveTodos("Dummy")).willReturn(todos);
+        TodoBusinessImpl todoBusinessImpl = new TodoBusinessImpl(todoServiceMock);
+        //When
+        todoBusinessImpl.deleteTodosRelatedToSpring("Dummy");
+        //Then
+        then(todoServiceMock).should(times(2))
+                .deleteTodo(stringArgumentCaptor.capture());
+        assertThat(stringArgumentCaptor.getAllValues().size(), is(2));
     }
 }
