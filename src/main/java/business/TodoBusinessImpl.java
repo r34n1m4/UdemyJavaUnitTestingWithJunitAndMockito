@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 //TodoBusinessImpl SUT - System Under Test
 //TodoService - dependency
-public class TodoServiceImpl {
+public class TodoBusinessImpl {
     private TodoService todoService;
 
-    public TodoServiceImpl(TodoService todoService) {
+    public TodoBusinessImpl(TodoService todoService) {
         super();
         this.todoService = todoService;
     }
