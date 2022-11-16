@@ -4,7 +4,10 @@ import org.junit.Test;
 
 import java.util.List;
 
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.mockito.BDDMockito.*;
 import static org.mockito.Mockito.*;
 
 public class ListTest {
@@ -32,5 +35,17 @@ public class ListTest {
         //Argument matcher
         when(listMock.get(anyInt())).thenThrow(new RuntimeException("some exception"));
         listMock.get(0);
+    }
+
+    @Test
+    public void mockBDD() {
+        //Given
+        List<String> listMock = mock(List.class);
+        //Argument matcher
+        given(listMock.get(anyInt())).willReturn("String");
+        //When
+        String firstElement = listMock.get(0);
+        //Then
+        assertThat(firstElement, is("String"));
     }
 }

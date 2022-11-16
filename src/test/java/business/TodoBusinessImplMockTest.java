@@ -1,14 +1,15 @@
 package business;
 
 import api.TodoService;
-import api.TodoServiceStub;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertThat;
+import static org.mockito.BDDMockito.*;
 
 
 public class TodoBusinessImplMockTest {
@@ -27,5 +28,22 @@ public class TodoBusinessImplMockTest {
         List<String> filteredTodos =
                 todoBusinessImpl.retrieveTodosRelatedToSpring("Dummy something");
         assertEquals(2, filteredTodos.size());
+    }
+
+    @Test
+    public void testRetrieveTodosRelatedToSpring_usingBDD () {
+
+        //Given
+        TodoService todoServiceMock = mock(TodoService.class);
+        List<String> todos =
+                Arrays.asList("Learn Spring MVC", "Learn Spring", "Learn to sleep at work");
+        given(todoServiceMock.retrieveTodos("Dummy")).willReturn(todos);
+        TodoBusinessImpl todoBusinessImpl = new TodoBusinessImpl(todoServiceMock);
+
+        //When
+        List<String> filteredTodos =
+                todoBusinessImpl.retrieveTodosRelatedToSpring("Dummy something");
+        //Then
+        assertThat(filteredTodos.size(), is(2));
     }
 }
