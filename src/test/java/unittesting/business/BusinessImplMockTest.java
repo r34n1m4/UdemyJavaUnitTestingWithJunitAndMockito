@@ -2,15 +2,23 @@ package unittesting.business;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 import unittesting.data.DataService;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class BusinessImplMockTest {
 
+    @InjectMocks
     BusinessImpl business = new BusinessImpl();
-    DataService dataServiceMock = mock(DataService.class);
+
+    @Mock
+    DataService dataServiceMock;
 
     @Before
     public void before() {
