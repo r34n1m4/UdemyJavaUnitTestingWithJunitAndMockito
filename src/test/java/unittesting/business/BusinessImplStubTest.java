@@ -13,7 +13,7 @@ class dataServiceStub implements DataService {
     }
 }
 
-class dataServiceStub2 implements DataService {
+class dataServiceStubEmpty implements DataService {
 
     @Override
     public int[] retrieveAllData() {
@@ -21,7 +21,7 @@ class dataServiceStub2 implements DataService {
     }
 }
 
-class dataServiceStub3 implements DataService {
+class dataServiceStubOneValue implements DataService {
 
     @Override
     public int[] retrieveAllData() {
@@ -43,7 +43,7 @@ public class BusinessImplStubTest {
     @Test
     public void calculateSumUsingDataService_empty() {
         BusinessImpl business = new BusinessImpl();
-        business.setDataService(new dataServiceStub2());
+        business.setDataService(new dataServiceStubEmpty());
         int actualResult = business.calculateSumUsingDataService();
         int expectedResult = 0;
         assertEquals(expectedResult, actualResult);
@@ -52,7 +52,7 @@ public class BusinessImplStubTest {
     @Test
     public void calculateSumUsingDataService_oneValue() {
         BusinessImpl business = new BusinessImpl();
-        business.setDataService(new dataServiceStub3());
+        business.setDataService(new dataServiceStubOneValue());
         int actualResult = business.calculateSumUsingDataService();
         int expectedResult = 5;
         assertEquals(expectedResult, actualResult);
