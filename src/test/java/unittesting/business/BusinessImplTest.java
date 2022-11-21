@@ -13,4 +13,12 @@ public class BusinessImplTest {
         int expectedResult = 6;
         assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    public void calculateSum_empty() {
+        BusinessImpl business = new BusinessImpl();
+        int actualResult = business.calculateSum(new int[]{});
+        int expectedResult = 0;
+        assertEquals(expectedResult, actualResult);
+    }
 }
