@@ -29,4 +29,11 @@ public class ListMockTest {
         when(mock.get(0)).thenReturn("Test string");
         assertEquals("Test string", mock.get(0));
     }
+
+    @Test
+    public void returnWithGenericParameters() {
+        when(mock.get(anyInt())).thenReturn("Test string");
+        assertEquals("Test string", mock.get(0));
+        assertEquals("Test string", mock.get(10));
+    }
 }
