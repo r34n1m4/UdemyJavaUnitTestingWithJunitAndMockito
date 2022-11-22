@@ -1,6 +1,6 @@
-package controller;
+package com.example.helloworld.controller;
 
-import com.example.helloworld.controller.HelloWorldController;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,26 +12,28 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(HelloWorldController.class)
 public class HelloWorldControllerTest {
 
     @Autowired
-    private MockMvc mockMvc;
-
+    MockMvc mockMvc;
 
     @Test
     public void helloWorld_basic() throws Exception {
-        //call "/hello-world" application/json
+        //call "/hello-world" GET application/json
         RequestBuilder request = MockMvcRequestBuilders
                 .get("/hello-world")
                 .accept(MediaType.APPLICATION_JSON);
-        MvcResult result = mockMvc.perform(request).andReturn();
-
-        //verify "Hello World" output
-        assertEquals("Hello World", result.getResponse().getContentAsString());
+        MvcResult result = mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(content().string("Hello World"))
+                .andReturn();
+        //verify "Hello World"
+        //assertEquals("Hello World", result.getResponse().getContentAsString());
     }
 }
