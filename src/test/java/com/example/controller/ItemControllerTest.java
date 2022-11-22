@@ -1,4 +1,4 @@
-package com.example.helloworld.controller;
+package com.example.controller;
 
 
 import org.junit.Test;

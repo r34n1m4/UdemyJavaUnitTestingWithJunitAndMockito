@@ -1,6 +1,6 @@
-package com.example.helloworld.controller;
+package com.example.controller;
 
-import com.example.helloworld.model.Item;
+import com.example.model.Item;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
